@@ -1,9 +1,10 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import=" static com.Diachenko.WebFloorHelper.serlets.RoomServlet.databaseContent" %>
 <%@ page import="com.Diachenko.WebFloorHelper.database.model.Model" %>
 <%@ page import="com.Diachenko.WebFloorHelper.database.entities.Layout" %>
 <%@ page import="java.util.List" %>
-
+<%@ page import="java.io.PrintWriter" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,7 @@
         <title>Coordinates list</title>
     </head>
     <body>
-        <%  Model model = new Model("jdbc:mysql://mysql:3306/floorlayoutdb?useUnicode=true", "root", "root");
+        <%  Model model = new Model("jdbc:mysql://localhost/FloorLayoutDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "root");
             List<Layout> listOfLayouts = model.list();
             if (listOfLayouts != null && !listOfLayouts.isEmpty()) {
                 for (int i = 0; i < listOfLayouts.size(); i++) {

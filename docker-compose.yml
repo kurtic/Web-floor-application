@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+    mysql:
+      container_name: mysql
+      image: mysql/mysql-server:8.0.22
+      environment:
+        MYSQL_DATABASE: floorlayoutdb
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: root
+        MYSQL_ROOT_HOST: '%'
+      ports:
+      - "3306:3306"
+      restart: always
+      volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    web:
+     container_name: web
+     build: "./web"
+     ports:
+      - "8080:8080"
+     depends_on:
+      - mysql
+     environment: 
+      JDBC_URL: jdbc:mysql://mysql:3306/
+      DATABASE_NAME: floorlayoutdb
+      JDBC_USER: root
+      JDBC_PASS: root
+    
+      

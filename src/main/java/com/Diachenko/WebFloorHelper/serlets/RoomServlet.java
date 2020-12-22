@@ -22,7 +22,10 @@ import static com.Diachenko.WebFloorHelper.tools.roomValidate.*;
 
 public class RoomServlet extends HttpServlet {
     private String coordinates;
-    private String urlDB = "jdbc:mysql://localhost/FloorLayoutDB?useUnicode=true&useJDBCCompliantTimezone" +
+    //if you want use on the local server, you need to change (mysql:3306) to (localhost)
+    // DON'T FORGET
+    // ALSO YOU NEED TO CHANGE IN coordinatesList.jsp
+    private String urlDB = "jdbc:mysql://mysql:3306/floorlayoutdb?useUnicode=true&useJDBCCompliantTimezone" +
             "Shift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String userDB = "root";
     private String passwordDB = "root";
@@ -255,6 +258,7 @@ public class RoomServlet extends HttpServlet {
                 request.setAttribute("name", request.getParameter("name"));
                 requestDispatcher.forward(request, response);
             } catch (SQLException throwables) {
+                throwables.printStackTrace();
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/errorPage.jsp");
                 request.setAttribute("error", "Database isn't working, try again later");
                 requestDispatcher.forward(request, response);
